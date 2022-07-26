@@ -3,7 +3,13 @@
 
 /*generic-classes*/
 .transition{
-  transition: all 0.3s;
+  transition: all 0.2s ease-in-out;
+}
+a{
+  text-decoration: none;
+}
+.selected{
+  color: #FFDFBA;
 }
 /*<----------->*/
 
@@ -20,6 +26,11 @@
   align-items: center;
   font-family: 'Edu VIC WA NT Beginner';
 }
+
+.logo-container{
+  width: 25vw;
+  display: flex;
+}
 .header-logo{
   width: 10vh;
   height: 10vh;
@@ -30,4 +41,80 @@
 }
 .header-logo:hover{
   box-shadow: 0 0 20px darkgray;
+}
+
+.header-list{
+  display: flex;
+  justify-content: space-evenly;
+}
+.links{
+  width: 50vw;
+}
+.user-menu{
+  width: 25vw;
+}
+.header-link{
+  font-size: 1.5em;
+  color: black;
+}
+.links>li{
+  padding: 0.5em;
+}
+.links>li:hover{
+  background-color: #FFDFBA;
+}
+.links>li:hover .header-link{
+  color: rgb(97, 97, 97);
+}
+
+.user-menu>li>span:hover{
+  cursor: pointer;
+  color: darkolivegreen;
+}
+
+.total-cart{
+  visibility: hidden;
+}
+.user-menu>li{
+  display: flex;
+  align-items: center;
+}
+.user-menu>li:hover .total-cart{
+  visibility: visible;
+}
+
+
+/*------Home Page-----*/
+.home-container{
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/airpods_hero.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: 'open sans';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.main-text{
+  color: white;
+  width: 40%;
+  font-size: 4em;
+  margin-bottom: 10vh;
+  font-weight: 900;
+}
+.shop-button{
+  font-size: 3em;
+  padding: 0.4em;
+  margin-bottom: 10vh;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.shop-button:hover{
+  background-color: white;
+  color: black;
 }

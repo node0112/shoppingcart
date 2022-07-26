@@ -4,13 +4,16 @@ import logo from '../images/logo.png'
 export default function Header(){
     return ( //link logo homepage
         <div className="header">
-            <img className="header-logo transition" src={logo}></img>
+            <div className="logo-container"><img className="header-logo transition" src={logo}></img></div>
             <ul className="header-list links">
-                <li><a className="header-link"></a></li>{/* links to shop page with only specific rendered cards; just a mock */}
+                <li className="transition"><a className="header-link transition" href="">All</a></li>{/* links to shop page with only specific rendered cards; just a mock */}
+                <li className="transition"><a className="header-link transition" href="">Airpods</a></li>
+                <li className="transition"><a className="header-link transition" href="">Iphone</a></li>
+                <li className="transition"><a className="header-link transition" href="">Macs</a></li>
             </ul>
-            <ul className="user-menu">
-                <li></li> {/* links to no page; just a mock */}
-                <li></li> {/* links to cart page */}
+            <ul className="header-list user-menu">
+                <li><span className="material-icons transition ">account_circle</span></li> {/* links to no page; just a mock */}
+                <li><span className="material-icons transition ">shopping_bag</span><div className="total-cart">$233</div></li> {/* links to cart page */}
             </ul>
         </div>
     )
