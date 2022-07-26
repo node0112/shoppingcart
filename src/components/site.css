@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@600&family=Open+Sans&family=Roboto&display=swap');
+
+
+/*generic-classes*/
+.transition{
+  transition: all 0.3s;
+}
+/*<----------->*/
+
+.main-container{
+  height: 85vh;
+  width: 100vw;
+}
+
+.header{
+  height: 15vh;
+  width: 100vw;
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  font-family: 'Edu VIC WA NT Beginner';
+}
+.header-logo{
+  width: 10vh;
+  height: 10vh;
+  box-shadow: 0 0 20px lightgray;
+  object-fit: cover;
+  margin-left: 40px;
+  cursor: pointer;
+}
+.header-logo:hover{
+  box-shadow: 0 0 20px darkgray;
+}
