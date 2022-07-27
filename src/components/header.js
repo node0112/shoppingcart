@@ -6,7 +6,7 @@ export default function Header(){
         <div className="header">
             <div className="logo-container"><img className="header-logo transition" src={logo}></img></div>
             <ul className="header-list links">
-                <li className="transition"><a className="header-link transition" href="">All</a></li>{/* links to shop page with only specific rendered cards; just a mock */}
+                <li className="transition"><a className="header-link transition" >All</a></li>{/* links to shop page with only specific rendered cards; just a mock */}
                 <li className="transition"><a className="header-link transition" href="">Airpods</a></li>
                 <li className="transition"><a className="header-link transition" href="">Iphone</a></li>
                 <li className="transition"><a className="header-link transition" href="">Macs</a></li>
