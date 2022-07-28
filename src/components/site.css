@@ -163,6 +163,10 @@ label{
 }
 
 
+/*--Product Card--*/
+.product-heading{
+  text-transform: capitalize;
+}
 
 /*extra styling */
 
