@@ -17,6 +17,7 @@ a{
 .main-container{
   height: 85vh;
   width: 100vw;
+  display: flex;
 }
 
 .header{
@@ -56,6 +57,7 @@ a{
 }
 .header-link{
   font-size: 1.5em;
+  cursor: pointer;
 }
 .links>li{
   padding: 0.5em;
@@ -158,15 +160,74 @@ label{
   gap: 20px;
 }
 
-.products-container{
-  display: grid;
-}
 
 
 /*--Product Card--*/
+.products-container{
+  width: 84%;
+  display: grid;
+  overflow: scroll;
+  grid-template-columns: repeat(3, 300px);
+  gap: 50px;
+  padding: 30px;
+}
+.product-card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 400px;
+  width: 300px;
+  border-radius: 20px;
+  transition: all 0.4s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.product-image{
+  width: 250px;
+  height: 250px;
+}
+.product-card:hover{
+  box-shadow: 0 0 30px lightgray;
+}
+.product-price{
+  width: 250px;
+  text-align: left;
+  color: gray;
+}
 .product-heading{
   text-transform: capitalize;
+  width: 250px;
+  font-size: 1.3em;
+  text-align: left;
 }
+.delivery-time{
+  width: 250px;
+  text-align: left;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: olivedrab;
+  margin-top: -8px;
+  gap: 5px;
+}
+.delivery-time>span{
+  font-size: 0.8em;
+}
+.add-to-button{
+  width: 200px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 15px;
+}
+.add-to-button:hover{
+  background-color: #FFDFBA;
+}
+
 
 /*extra styling */
 

@@ -60,6 +60,7 @@ function App() {
         link.addEventListener('click',()=>{
           selected=link.textContent
           checkSelected()
+          createProductCard()
         })
       });
     }, 100)
@@ -186,6 +187,7 @@ function App() {
     }
   //------
 
+  const deliveryDays=[3,4,5,6,7,8,9,10]
   const [pageToRender,setPageToRender]=useState('shop')
   let selected=''
 
@@ -199,6 +201,49 @@ function App() {
         link.classList.remove('selected')
        }
       });
+  }
+
+  function createProductCard(){
+    let productCardContainer=document.querySelector('.products-container')
+
+    let card=document.createElement('div')
+    card.classList.add('product-card')
+
+    let productImage=document.createElement('img')
+    productImage.classList.add('product-image')
+
+    let productPrice=document.createElement('div')
+    productPrice.classList.add('product-price')
+    
+    let productTitle=document.createElement('div')
+    productTitle.classList.add('product-heading')
+
+    let deliveryTime=document.createElement('div')
+    deliveryTime.classList.add('delivery-time')
+    let text=document.createElement('div')
+    let deliveryTimeLogo=document.createElement('span')
+    deliveryTimeLogo.classList.add('material-icons')
+    deliveryTimeLogo.textContent='inventory_2'
+    deliveryTime.appendChild(deliveryTimeLogo)
+    deliveryTime.appendChild(text)
+
+    let addToBagButton=document.createElement('button')
+    addToBagButton.classList.add('add-to-button')
+    addToBagButton.textContent="Add To Bag"
+
+    productImage.src=airpods2_1 //change all of these
+    productTitle.textContent='Airpods 2nd Generation'
+    productPrice.textContent='$129'
+    text.textContent='Delivered in 10 days' //deliverytime
+
+
+    card.appendChild(productImage)
+    card.appendChild(productPrice)
+    card.appendChild(productTitle)
+    card.appendChild(deliveryTime)
+    card.appendChild(addToBagButton)
+
+    productCardContainer.appendChild(card)
   }
 
   return (
