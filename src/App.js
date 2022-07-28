@@ -55,9 +55,12 @@ import orderSuccess from './images/order_success.png'
 function App() {
   useEffect(()=>{
     setTimeout(() => {
-      let links=document.querySelectorAll('.header-link') //currently giving null
+      let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
-        link.addEventListener('click',()=>{console.log('sjdnujdn')})
+        link.addEventListener('click',()=>{
+          selected=link.textContent
+          checkSelected()
+        })
       });
     }, 100)
   },[Header])
@@ -69,7 +72,20 @@ function App() {
   //------
 
   const [pageToRender,setPageToRender]=useState('shop')
-  const [selected,setSelected]=useState('')
+  let selected=''
+
+  function checkSelected(){
+    let links=document.querySelectorAll('.header-link')
+      links.forEach(link => {
+       if(link.textContent === selected){
+        link.classList.add('selected')
+       }
+       else{
+        link.classList.remove('selected')
+       }
+      });
+  }
+
   return (
     <div className="App">
       <Header />

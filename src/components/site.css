@@ -11,6 +11,7 @@ a{
 .selected{
   color: #FFDFBA;
 }
+
 /*<----------->*/
 
 .main-container{
@@ -55,7 +56,6 @@ a{
 }
 .header-link{
   font-size: 1.5em;
-  color: black;
 }
 .links>li{
   padding: 0.5em;
