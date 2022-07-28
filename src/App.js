@@ -59,6 +59,7 @@ function App() {
       links.forEach(link => {
         link.addEventListener('click',()=>{
           selected=link.textContent
+          showSpinner()
           checkSelected()
           createProductCard()
         })
@@ -202,7 +203,13 @@ function App() {
        }
       });
   }
-
+  function showSpinner(){
+    let loadingScreen=document.querySelector('.loading-screen')
+    loadingScreen.classList.remove('hide')
+    setTimeout(() => {
+      loadingScreen.classList.add('hide')
+    }, 1500);
+  }
   function createProductCard(){
     let productCardContainer=document.querySelector('.products-container')
 
@@ -231,7 +238,7 @@ function App() {
     addToBagButton.classList.add('add-to-button')
     addToBagButton.textContent="Add To Bag"
 
-    productImage.src=airpods2_1 //change all of these
+    productImage.src=mbp13_1 //change all of these
     productTitle.textContent='Airpods 2nd Generation'
     productPrice.textContent='$129'
     text.textContent='Delivered in 10 days' //deliverytime
