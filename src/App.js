@@ -58,140 +58,172 @@ function App() {
       let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
         link.addEventListener('click',()=>{
-          selected=link.textContent
-          showSpinner()
+          if(prevSelected === ''){
+            selected=link.textContent
+          }
+          else if(selected !== link.textContent){
+            prevSelected=selected
+            selected=link.textContent
+          }
+          showSpinner() //disabled for development
           checkSelected()
-          createProductCard()
+          let currentSelection=(link.textContent).toLowerCase()
+          if(currentSelection === "airpods"){
+            pushToArray(products[0],0)
+          }
+          else if(currentSelection === 'iphones'){
+            pushToArray(products[1],1)
+          }
+          else if(currentSelection === 'macs'){
+            pushToArray(products[2],2)
+          }
         })
       });
     }, 100)
   },[Header])
 
+  
   //define arrays here
-    const products={
-      "airpods" : {
-        "airpodsPro" : {
+    var products=[
+       [//airpods
+        {
           name: 'airpods pro',
           price: 249,
           image1: airpodspro_1,
           image2: airpodspro_2
         },
-        "airpods2" : {
+        {
           name: 'airpods 2nd genereation',
           price: 139,
           image1: airpods2_1,
           image2: airpods2_2
         },
-        "airpods3" : {
+        {
           name: 'airpods 3rd genereation',
           price: 179,
           image1: airpods3_1,
           image2: airpods3_2
         },
-        "airpodsMax" : {
+        {
           name: 'airpods max',
           price: 500,
           image1: airpodsmax_1,
           image2: airpodsmax_2
         },
-      },
-      "iphones" : {
-        "iphone12" : {
+      ],
+      [//iphones
+        {
           name: 'iphone 12',
           price: 599,
           image1: iphone12_1,
           image2: iphone12_2
         },
-        "iphone12Pro" : {
+        {
           name: 'iphone 12 pro',
           price: 899,
           image1: iphone12pro_1,
           image2: iphone12pro_2
         },
-        "iphone13Pro" : {
+        {
           name: 'iphone 13 pro',
           price: 999,
           image1: iphone13pro_1,
           image2: iphone13pro_2
         },
-        "iphoneSe" : {
+        {
           name: 'iphone SE',
           price: 429,
           image1: iphoneSe_1,
           image2: iphoneSe_2
         }
-      },
-      "macs" : {
-        "imac" : {
+    ],
+      [//macs
+        {
           name: 'Imac 2021 8gb 1tb i5',
           price: 800,
           image1: imac_1,
           image2: imac_2
         },
-        "mbp13" : {
+        {
           name: 'Macbook Pro 13 Inch M2 8gb 256gb',
           price: 1199,
           image1: mbp13_1,
           image2: mbp13_2
         },
-        "mbp14" : {
+        {
           name: 'Macbook Pro 14 inch 8gb 16gb 512gb ',
           price: 1849,
           image1: mbp14_1,
           image2: mbp14_2
         },
-        "mbp16" : {
+        {
           name: 'Macbook Pro 16 inch 16gb 16gb 1Tb ',
           price: 2499,
           image1: mbp16_1,
           image2: mbp16_2
         },
-      },
-      "accessories" : {
-        "iphonemagsafe" : {
+      ],
+      [//accessories
+        {
           name: 'MagSafe Clear Case for iphone',
           price: 49,
           image1: magsafeCase,
           image2: magsafeCase
         },
-        "lighteningCable" : {
+        {
           name: 'lightening cable 1m',
           price: 19,
           image1: lightening_cable,
           image2: lightening_cable
         },
-        "magsafeDuoCharger" : {
+        {
           name: 'magSafe duo charger',
           price: 129,
           image1: magsafe,
           image2: magsafe
         },
-        "magsafeCharger" : {
+        {
           name: 'magSafe charger for iphone',
           price: 39,
           image1: iphoneMagsafe,
           image2: iphoneMagsafe
         },
-        "macbookCharger" : {
+        {
           name: 'magSafe charger for Mac',
           price: 120,
           image1: macbookCharger,
           image2: macbookCharger
         },
-        "airpodsCase" : {
+        {
           name: 'Prada case for airpods gen 1 & 2',
           price: 550,
           image1: pradaCase,
           image2: pradaCase
         },
-      }
-    }
+      ]
+    ]
   //------
 
   const deliveryDays=[3,4,5,6,7,8,9,10]
   const [pageToRender,setPageToRender]=useState('shop')
   let selected=''
+  let prevSelected=''
+  let productsArray=[]
 
+  function pushToArray(elements,number){
+    for(var key in elements) {
+      let productsArray=products[number]
+      let name,price,img1,img2
+      for(let i=0;i<productsArray.length;i++){
+        name=productsArray[i].name
+        price=productsArray[i].price
+        img1=productsArray[i].image1
+        img2=productsArray[i].image2
+        createProductCard(name,price,img1,img2)
+      }
+   }
+   return false
+  }
   function checkSelected(){
     let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
@@ -210,7 +242,8 @@ function App() {
       loadingScreen.classList.add('hide')
     }, 1500);
   }
-  function createProductCard(){
+  function createProductCard(name,price,img1,img2){
+
     let productCardContainer=document.querySelector('.products-container')
 
     let card=document.createElement('div')
@@ -238,11 +271,12 @@ function App() {
     addToBagButton.classList.add('add-to-button')
     addToBagButton.textContent="Add To Bag"
 
-    productImage.src=mbp13_1 //change all of these
-    productTitle.textContent='Airpods 2nd Generation'
-    productPrice.textContent='$129'
+    productImage.src=img1 //change all of these
+    productTitle.textContent=name
+    productPrice.textContent='$'+price
     text.textContent='Delivered in 10 days' //deliverytime
-
+    card.addEventListener('mouseover',()=>{productImage.src=img2})
+    card.addEventListener('mouseout',()=>{productImage.src=img1})
 
     card.appendChild(productImage)
     card.appendChild(productPrice)
@@ -251,6 +285,10 @@ function App() {
     card.appendChild(addToBagButton)
 
     productCardContainer.appendChild(card)
+  }
+  function selectRandom(end){
+    let selectedProduct=Math.floor(Math.random() * (end));
+    return selectedProduct
   }
 
   return (

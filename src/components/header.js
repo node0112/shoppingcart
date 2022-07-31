@@ -8,7 +8,7 @@ export default function Header(){
             <ul className="header-list links">
                 <li className="transition"><a className="header-link transition" >All</a></li>{/* links to shop page with only specific rendered cards; just a mock */}
                 <li className="transition"><a className="header-link transition">Airpods</a></li>
-                <li className="transition"><a className="header-link transition">Iphone</a></li>
+                <li className="transition"><a className="header-link transition">Iphones</a></li>
                 <li className="transition"><a className="header-link transition">Macs</a></li>
             </ul>
             <ul className="header-list user-menu">
