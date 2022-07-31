@@ -1,7 +1,7 @@
 import React from "react";
 import logo from '../images/logo.png'
 
-export default function Header(){
+export default function Header(total){
     return ( //link logo homepage
         <div className="header">
             <div className="logo-container"><img className="header-logo transition" src={logo}></img></div>
@@ -13,7 +13,7 @@ export default function Header(){
             </ul>
             <ul className="header-list user-menu">
                 <li><span className="material-icons transition ">account_circle</span></li> {/* links to no page; just a mock */}
-                <li><span className="material-icons transition ">shopping_bag</span><div className="total-cart">$233</div></li> {/* links to cart page */}
+                <li><span className="material-icons transition bag">shopping_bag</span><div className="total-cart">${total.total}</div></li> {/* links to cart page */}
             </ul>
         </div>
     )

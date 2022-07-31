@@ -58,27 +58,46 @@ function App() {
       let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
         link.addEventListener('click',()=>{
-          if(prevSelected === ''){
+          if(link.textContent!=selected){
+            rendered=false
             selected=link.textContent
-          }
-          else if(selected !== link.textContent){
-            prevSelected=selected
-            selected=link.textContent
-          }
-          showSpinner() //disabled for development
-          checkSelected()
-          let currentSelection=(link.textContent).toLowerCase()
-          if(currentSelection === "airpods"){
-            pushToArray(products[0],0)
-          }
-          else if(currentSelection === 'iphones'){
-            pushToArray(products[1],1)
-          }
-          else if(currentSelection === 'macs'){
-            pushToArray(products[2],2)
+            //showSpinner() //disabled for development
+            checkSelected()
+            let currentSelection=(link.textContent).toLowerCase()
+            if(currentSelection === "airpods"){
+              removeItems()
+              pushToArray(products[0],0)
+              pushToArray(products[3],3)
+              rendered=true
+            }
+            else if(currentSelection === 'iphones'){
+              removeItems()
+              pushToArray(products[1],1)
+              pushToArray(products[3],3)
+              rendered=true
+            }
+            else if(currentSelection === 'macs'){
+              removeItems()
+              pushToArray(products[2],2)
+              pushToArray(products[3],3)
+              rendered=true
+            }
+            else if(currentSelection === 'all'){
+              removeItems()
+              pushToArray(products[0],0)
+              pushToArray(products[1],1)
+              pushToArray(products[2],2)
+              pushToArray(products[3],3)
+              rendered=true
+            }
           }
         })
+      
       });
+      let bag=document.querySelector('.bag')
+      bag.addEventListener('click',()=>{
+
+      })
     }, 100)
   },[Header])
 
@@ -206,23 +225,32 @@ function App() {
 
   const deliveryDays=[3,4,5,6,7,8,9,10]
   const [pageToRender,setPageToRender]=useState('shop')
+  const [total,setTotal]=useState(233)
+  const updateTotal = (price)=>setTotal((currentTotal) => currentTotal+price)
   let selected=''
   let prevSelected=''
-  let productsArray=[]
+  let rendered=false
+  let cart=[]
+  var cartArrayPos=0
 
   function pushToArray(elements,number){
-    for(var key in elements) {
-      let productsArray=products[number]
+      if(rendered===false){let productsArray=products[number]
       let name,price,img1,img2
       for(let i=0;i<productsArray.length;i++){
         name=productsArray[i].name
         price=productsArray[i].price
         img1=productsArray[i].image1
         img2=productsArray[i].image2
-        createProductCard(name,price,img1,img2)
+        let deliveryTime=deliveryDays[selectRandom(deliveryDays.length)]
+        createProductCard(name,price,img1,img2,deliveryTime,productsArray[i])
       }
-   }
-   return false
+    }
+  }
+  function removeItems(){
+    let grids=document.querySelector('.products-container')
+    while(grids.firstChild) {
+    grids.removeChild(grids.lastChild)
+  }
   }
   function checkSelected(){
     let links=document.querySelectorAll('.header-link')
@@ -242,7 +270,7 @@ function App() {
       loadingScreen.classList.add('hide')
     }, 1500);
   }
-  function createProductCard(name,price,img1,img2){
+  function createProductCard(name,price,img1,img2,delivery,productId){
 
     let productCardContainer=document.querySelector('.products-container')
 
@@ -274,9 +302,20 @@ function App() {
     productImage.src=img1 //change all of these
     productTitle.textContent=name
     productPrice.textContent='$'+price
-    text.textContent='Delivered in 10 days' //deliverytime
-    card.addEventListener('mouseover',()=>{productImage.src=img2})
-    card.addEventListener('mouseout',()=>{productImage.src=img1})
+    text.textContent='Delivered in '+delivery+' days' //deliverytime
+
+    card.addEventListener('mouseover',()=>{productImage.src=img2}) //changes image to second image
+    card.addEventListener('mouseout',()=>{productImage.src=img1}) //changes back image to original image
+    addToBagButton.addEventListener('click',()=>{
+     updateTotal(price)
+     cart[cartArrayPos]=productId
+      document.querySelector('.bag').style.color='yellowgreen'
+      setTimeout(() => {
+        document.querySelector('.bag').style.color=''
+      }, 1000);
+      cartArrayPos=cartArrayPos+1
+      console.log(cart)
+    })
 
     card.appendChild(productImage)
     card.appendChild(productPrice)
@@ -286,6 +325,9 @@ function App() {
 
     productCardContainer.appendChild(card)
   }
+  function createCartElement(){
+
+  }
   function selectRandom(end){
     let selectedProduct=Math.floor(Math.random() * (end));
     return selectedProduct
@@ -293,7 +335,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header total={total} cartProducts={cart} />
       <ShopPage />
     </div>
   );

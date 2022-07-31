@@ -202,6 +202,10 @@ label{
   width: 250px;
   font-size: 1.3em;
   text-align: left;
+  white-space: nowrap;
+  overflow: scroll;
+  overflow-y: hidden;
+  text-overflow: clip ellipsis !important;
 }
 .delivery-time{
   width: 250px;
@@ -246,6 +250,7 @@ input[type="radio"]:checked:before {
 }
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
   background-color: transparent;
 }
 
