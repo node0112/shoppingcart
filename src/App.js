@@ -9,6 +9,7 @@ import ShopPage from './components/shoppage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
+
 //airpods images
 import airpods2_1 from './images/airpods2_1.jpeg'
 import airpods2_2 from './images/airpods2_2.jpeg'
@@ -61,7 +62,9 @@ function App() {
       let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
         link.addEventListener('click',()=>{
-          renderShopItems(link)
+          setTimeout(() => {
+            renderShopItems(link)
+          }, 500); 
         })
       
       });
@@ -357,9 +360,16 @@ function App() {
   
   //<Cart cartItems={cart} totalPrice={total} />
   return (
+    <BrowserRouter>
     <div className="App">
       <Header total={total}  />
-    </div>
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+        <Route path="/shop" element={<ShopPage/>} />
+        <Route path="/bag" element={<Cart cartItems={cart} totalPrice={total} />} />
+      </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
