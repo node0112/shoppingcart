@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 export default function HomePage(){
@@ -5,7 +6,7 @@ export default function HomePage(){
         <div className="main-container">
             <div className="home-container">
                 <div className="main-text">All New Airpods Pro Back In Stock</div>
-                <button className="shop-button transition">Shop Now</button>
+                <Link to={'/shop'}><button className="shop-button transition">Shop Now</button></Link>
             </div>
         </div>
     )

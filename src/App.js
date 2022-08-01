@@ -6,6 +6,8 @@ import Header from './components/header';
 import HomePage from './components/homepage';
 import { useEffect, useState } from 'react';
 import ShopPage from './components/shoppage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 
 //airpods images
 import airpods2_1 from './images/airpods2_1.jpeg'
@@ -49,6 +51,7 @@ import pradaCase from './images/prada_airpods_case.jpg'
 
 //extras
 import orderSuccess from './images/order_success.png'
+import Cart from './components/cart';
 
 
 
@@ -58,48 +61,17 @@ function App() {
       let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
         link.addEventListener('click',()=>{
-          if(link.textContent!=selected){
-            rendered=false
-            selected=link.textContent
-            //showSpinner() //disabled for development
-            checkSelected()
-            let currentSelection=(link.textContent).toLowerCase()
-            if(currentSelection === "airpods"){
-              removeItems()
-              pushToArray(products[0],0)
-              pushToArray(products[3],3)
-              rendered=true
-            }
-            else if(currentSelection === 'iphones'){
-              removeItems()
-              pushToArray(products[1],1)
-              pushToArray(products[3],3)
-              rendered=true
-            }
-            else if(currentSelection === 'macs'){
-              removeItems()
-              pushToArray(products[2],2)
-              pushToArray(products[3],3)
-              rendered=true
-            }
-            else if(currentSelection === 'all'){
-              removeItems()
-              pushToArray(products[0],0)
-              pushToArray(products[1],1)
-              pushToArray(products[2],2)
-              pushToArray(products[3],3)
-              rendered=true
-            }
-          }
+          renderShopItems(link)
         })
       
       });
       let bag=document.querySelector('.bag')
       bag.addEventListener('click',()=>{
-
+        //render cart
       })
     }, 100)
   },[Header])
+
 
   
   //define arrays here
@@ -227,10 +199,28 @@ function App() {
   const [pageToRender,setPageToRender]=useState('shop')
   const [total,setTotal]=useState(233)
   const updateTotal = (price)=>setTotal((currentTotal) => currentTotal+price)
+  const decreaseTotal= (price)=>setTotal((currentTotal) => currentTotal-price)
   let selected=''
   let prevSelected=''
   let rendered=false
-  let cart=[]
+  let cart=[{
+    name: 'airpods pro',
+    price: 249,
+    image1: airpodspro_1,
+    image2: airpodspro_2
+  },
+  {
+    name: 'airpods 2nd genereation',
+    price: 139,
+    image1: airpods2_1,
+    image2: airpods2_2
+  },
+  {
+    name: 'airpods 3rd genereation',
+    price: 179,
+    image1: airpods3_1,
+    image2: airpods3_2
+  },]
   var cartArrayPos=0
 
   function pushToArray(elements,number){
@@ -243,6 +233,41 @@ function App() {
         img2=productsArray[i].image2
         let deliveryTime=deliveryDays[selectRandom(deliveryDays.length)]
         createProductCard(name,price,img1,img2,deliveryTime,productsArray[i])
+      }
+    }
+  }
+  function renderShopItems(link){
+    if(link.textContent!=selected){
+      rendered=false
+      selected=link.textContent
+      //showSpinner() //disabled for development
+      checkSelected()
+      let currentSelection=(link.textContent).toLowerCase()
+      if(currentSelection === "airpods"){
+        removeItems()
+        pushToArray(products[0],0)
+        pushToArray(products[3],3)
+        rendered=true
+      }
+      else if(currentSelection === 'iphones'){
+        removeItems()
+        pushToArray(products[1],1)
+        pushToArray(products[3],3)
+        rendered=true
+      }
+      else if(currentSelection === 'macs'){
+        removeItems()
+        pushToArray(products[2],2)
+        pushToArray(products[3],3)
+        rendered=true
+      }
+      else if(currentSelection === 'all'){
+        removeItems()
+        pushToArray(products[0],0)
+        pushToArray(products[1],1)
+        pushToArray(products[2],2)
+        pushToArray(products[3],3)
+        rendered=true
       }
     }
   }
@@ -325,18 +350,15 @@ function App() {
 
     productCardContainer.appendChild(card)
   }
-  function createCartElement(){
-
-  }
   function selectRandom(end){
     let selectedProduct=Math.floor(Math.random() * (end));
     return selectedProduct
   }
-
+  
+  //<Cart cartItems={cart} totalPrice={total} />
   return (
     <div className="App">
-      <Header total={total} cartProducts={cart} />
-      <ShopPage />
+      <Header total={total}  />
     </div>
   );
 }
