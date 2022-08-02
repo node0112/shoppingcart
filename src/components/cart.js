@@ -1,8 +1,12 @@
+import { useEffect } from "react";
+
 export default function Cart(objects){
 
     let products=objects.cartItems
     let name,price,img1
-    setTimeout(() => {
+    console.log(objects.cartItems)
+    useEffect(()=>{
+        console.log('updated')
         for(let i=0;i<products.length;i++){
             name=products[i].name
             price=products[i].price
@@ -43,7 +47,7 @@ export default function Cart(objects){
             card.appendChild(rightContainer)
             cartCardContainer.appendChild(card)
         }
-    }, );
+    },[products])
     return(
         <div className="main-container">
             <div className="cart-container">

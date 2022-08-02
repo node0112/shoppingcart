@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header(total){
     const navigate = useNavigate()
+    
     return ( //link logo homepage
         <div className="header">
-            <Link to={'/'}><div className="logo-container"><img className="header-logo transition" src={logo}></img></div></Link>
+            <Link to={'/'} onClick={total.removeSelected()}><div className="logo-container"><img className="header-logo transition" src={logo}></img></div></Link>
             <ul className="header-list links">
                 <li className="transition" onClick={()=>{navigate('/shop')}}><a className="header-link transition" >All</a></li>{/* links to shop page with only specific rendered cards; just a mock */}
                 <li className="transition"><a className="header-link transition">Airpods</a></li>

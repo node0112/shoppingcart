@@ -201,12 +201,7 @@ function App() {
   const deliveryDays=[3,4,5,6,7,8,9,10]
   const [pageToRender,setPageToRender]=useState('shop')
   const [total,setTotal]=useState(233)
-  const updateTotal = (price)=>setTotal((currentTotal) => currentTotal+price)
-  const decreaseTotal= (price)=>setTotal((currentTotal) => currentTotal-price)
-  let selected=''
-  let prevSelected=''
-  let rendered=false
-  let cart=[{
+  const [cart,setCart]=useState([{
     name: 'airpods pro',
     price: 249,
     image1: airpodspro_1,
@@ -223,7 +218,13 @@ function App() {
     price: 179,
     image1: airpods3_1,
     image2: airpods3_2
-  },]
+  },])
+  const updateTotal = (price)=>setTotal((currentTotal) => currentTotal+price)
+  const decreaseTotal= (price)=>setTotal((currentTotal) => currentTotal-price)
+  let selected=''
+  let prevSelected=''
+  let rendered=false
+  
   var cartArrayPos=0
 
   function pushToArray(elements,number){
@@ -298,6 +299,11 @@ function App() {
       loadingScreen.classList.add('hide')
     }, 1500);
   }
+  function removeSelection(){
+    let links=document.querySelectorAll('.header-link')
+      links.forEach(link => {link.classList.remove('selected')})
+      selected=''
+    }
   function createProductCard(name,price,img1,img2,delivery,productId){
 
     let productCardContainer=document.querySelector('.products-container')
@@ -336,12 +342,14 @@ function App() {
     card.addEventListener('mouseout',()=>{productImage.src=img1}) //changes back image to original image
     addToBagButton.addEventListener('click',()=>{
      updateTotal(price)
-     cart[cartArrayPos]=productId
+     setCart(cart=>[...cart,productId])
+     console.log(cart)
+     //cart[cartArrayPos]=productId
       document.querySelector('.bag').style.color='yellowgreen'
       setTimeout(() => {
         document.querySelector('.bag').style.color=''
       }, 1000);
-      cartArrayPos=cartArrayPos+1
+      cartArrayPos++
       console.log(cart)
     })
 
@@ -358,11 +366,10 @@ function App() {
     return selectedProduct
   }
   
-  //<Cart cartItems={cart} totalPrice={total} />
   return (
     <BrowserRouter>
     <div className="App">
-      <Header total={total}  />
+      <Header total={total}  removeSelected={removeSelection}/>
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/shop" element={<ShopPage/>} />
