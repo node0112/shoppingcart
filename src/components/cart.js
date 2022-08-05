@@ -1,12 +1,13 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart(objects){
-
     let products=objects.cartItems
     let name,price,img1
     console.log(objects.cartItems)
+    const navigate = useNavigate()
     useEffect(()=>{
-        console.log('updated')
+        removeItems()
         for(let i=0;i<products.length;i++){
             name=products[i].name
             price=products[i].price
@@ -38,6 +39,11 @@ export default function Cart(objects){
             cartDelivery.textContent='delivered in '+delivery+' days'
             cartItemImage.src=image
             removeButton.textContent='Remove X'
+
+            removeButton.addEventListener('click',()=>{
+                objects.removeProduct(title)
+                objects.decreaseTotal(price)
+            })
     
             rightContainer.appendChild(cartPrice)
             rightContainer.appendChild(cartTitle)
@@ -47,6 +53,12 @@ export default function Cart(objects){
             card.appendChild(rightContainer)
             cartCardContainer.appendChild(card)
         }
+        function removeItems(){
+            let grids=document.querySelector('.cart-container')
+            while(grids.firstChild) {
+            grids.removeChild(grids.lastChild)
+          }}
+        console.log('count')
     },[products])
     return(
         <div className="main-container">
@@ -54,7 +66,7 @@ export default function Cart(objects){
             </div>
             <div className="total-cart-main">
                 <div>Total: ${objects.totalPrice}</div>
-                <button className="submit-order transition">Checkout</button>
+                <button className="submit-order transition" onClick={()=>{navigate('/order-success')}}>Checkout</button>
             </div>
         </div>
     )

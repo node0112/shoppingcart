@@ -53,6 +53,7 @@ import pradaCase from './images/prada_airpods_case.jpg'
 //extras
 import orderSuccess from './images/order_success.png'
 import Cart from './components/cart';
+import OrderSuccessPage from './components/orderSuccess';
 
 
 
@@ -62,6 +63,7 @@ function App() {
       let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
         link.addEventListener('click',()=>{
+          //link.textContent!==selected ? showSpinner : null
           setTimeout(() => {
             renderShopItems(link)
           }, 500); 
@@ -199,8 +201,7 @@ function App() {
   //------
 
   const deliveryDays=[3,4,5,6,7,8,9,10]
-  const [pageToRender,setPageToRender]=useState('shop')
-  const [total,setTotal]=useState(233)
+  const [total,setTotal]=useState(567)
   const [cart,setCart]=useState([{
     name: 'airpods pro',
     price: 249,
@@ -221,11 +222,13 @@ function App() {
   },])
   const updateTotal = (price)=>setTotal((currentTotal) => currentTotal+price)
   const decreaseTotal= (price)=>setTotal((currentTotal) => currentTotal-price)
+  const removeProduct = name => {
+    setCart(cart.filter(cart => cart.name !== name))
+  }
   let selected=''
   let prevSelected=''
   let rendered=false
   
-  var cartArrayPos=0
 
   function pushToArray(elements,number){
       if(rendered===false){let productsArray=products[number]
@@ -244,7 +247,6 @@ function App() {
     if(link.textContent!=selected){
       rendered=false
       selected=link.textContent
-      //showSpinner() //disabled for development
       checkSelected()
       let currentSelection=(link.textContent).toLowerCase()
       if(currentSelection === "airpods"){
@@ -282,6 +284,7 @@ function App() {
   }
   }
   function checkSelected(){
+    console.log('called')
     let links=document.querySelectorAll('.header-link')
       links.forEach(link => {
        if(link.textContent === selected){
@@ -343,14 +346,10 @@ function App() {
     addToBagButton.addEventListener('click',()=>{
      updateTotal(price)
      setCart(cart=>[...cart,productId])
-     console.log(cart)
-     //cart[cartArrayPos]=productId
       document.querySelector('.bag').style.color='yellowgreen'
       setTimeout(() => {
         document.querySelector('.bag').style.color=''
       }, 1000);
-      cartArrayPos++
-      console.log(cart)
     })
 
     card.appendChild(productImage)
@@ -371,9 +370,10 @@ function App() {
     <div className="App">
       <Header total={total}  removeSelected={removeSelection}/>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
+        <Route path="/" element={< HomePage />} />
         <Route path="/shop" element={<ShopPage/>} />
-        <Route path="/bag" element={<Cart cartItems={cart} totalPrice={total} />} />
+        <Route path="/bag" element={<Cart cartItems={cart} totalPrice={total} decreaseTotal={decreaseTotal} removeProduct={removeProduct} />} />
+        <Route path='/order-success' element={<OrderSuccessPage total={total} />} />
       </Routes>
       </div>
     </BrowserRouter>

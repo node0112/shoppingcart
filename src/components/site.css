@@ -20,6 +20,8 @@ a{
   height: 85vh;
   width: 100vw;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header{
@@ -238,14 +240,14 @@ label{
 
 /*cart styling*/
 .cart-container{
-  overflow: scroll;
-  padding: 8%;
-  padding-top: 10%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  overflow-y: scroll;
+  padding: 20px;
+  padding-bottom: 50px;
+  display: grid;
   align-items: center;
+  justify-content: center;
   width: 100vw;
+  height:72vh;
   gap: 50px;
 }
 .cart-card{
@@ -253,6 +255,7 @@ label{
   text-align: left;
   height: 250px;
   width: 70vw;
+  gap: 20px;
   border-bottom: 2px solid lightgray;
 }
 .cart-item-img{
@@ -313,6 +316,60 @@ label{
 .submit-order:hover{
   background-color: #FFDFBA;
 }
+
+.order-card{
+  width: 400px;
+  height: 400px;
+  background-color: lightslategray;
+  border-radius: 20px;
+  color: #FFDFBA;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+  box-shadow: 0 0 20px lightgray;
+  position: relative;
+}
+
+.order-img{
+  width: 100px;
+  height: 100px;
+  animation: tilt-shaking 0.3s linear infinite;
+  position: absolute;
+  top: -50px;
+  background-color: white;
+  border-radius: 50px;
+  align-self: center;
+}
+.yay-msg{
+  margin-top: 70px;
+  font-size: 2.5em;
+  text-align: center;
+}
+.order-text{
+  font-size: 1.3em;
+  text-align: center;
+  padding: 5px;
+}
+.continue-shopping{
+  color: white;
+  font-size: 1.4em;
+  border: none;
+  background-color: black;
+  border-radius: 10px;
+  padding: 10px;
+  align-self: center;
+  cursor: pointer;
+}
+.payment{
+  font-size: 1.3em;
+  color: #C1E1C1;
+}
+
+
+
 /*extra styling */
 
 input[type="radio"]:checked:before {
@@ -371,4 +428,12 @@ input[type="radio"]:checked:before {
 
 .hide{
   visibility: hidden;
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
 }
