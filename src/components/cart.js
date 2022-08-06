@@ -60,13 +60,22 @@ export default function Cart(objects){
           }}
         console.log('count')
     },[products])
+
+    function mockOrderSuccess(){
+        objects.showSpinner()
+        setTimeout(() => {
+            navigate('/order-success')
+            objects.updateTotal(0)
+            objects.setCart([])
+        }, 1000);
+    }
     return(
         <div className="main-container">
             <div className="cart-container">
             </div>
             <div className="total-cart-main">
                 <div>Total: ${objects.totalPrice}</div>
-                <button className="submit-order transition" onClick={()=>{navigate('/order-success')}}>Checkout</button>
+                <button className="submit-order transition" onClick={()=>{mockOrderSuccess()}}>Checkout</button>
             </div>
         </div>
     )

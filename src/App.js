@@ -345,7 +345,7 @@ function App() {
     card.addEventListener('mouseout',()=>{productImage.src=img1}) //changes back image to original image
     addToBagButton.addEventListener('click',()=>{
      updateTotal(price)
-     setCart(cart=>[...cart,productId])
+     setCart(cart=>[...cart,productId]) //updates cart array to render cart items
       document.querySelector('.bag').style.color='yellowgreen'
       setTimeout(() => {
         document.querySelector('.bag').style.color=''
@@ -372,8 +372,8 @@ function App() {
       <Routes>
         <Route path="/" element={< HomePage />} />
         <Route path="/shop" element={<ShopPage/>} />
-        <Route path="/bag" element={<Cart cartItems={cart} totalPrice={total} decreaseTotal={decreaseTotal} removeProduct={removeProduct} />} />
-        <Route path='/order-success' element={<OrderSuccessPage total={total} />} />
+        <Route path="/bag" element={<Cart cartItems={cart} totalPrice={total} decreaseTotal={decreaseTotal} removeProduct={removeProduct} showSpinner={showSpinner} updateTotal={setTotal} setCart={setCart}/>} />
+        <Route path='/order-success' element={<OrderSuccessPage />} />
       </Routes>
       </div>
     </BrowserRouter>

@@ -20,8 +20,6 @@ a{
   height: 85vh;
   width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .header{
@@ -317,6 +315,13 @@ label{
   background-color: #FFDFBA;
 }
 
+.card-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .order-card{
   width: 400px;
   height: 400px;
@@ -352,6 +357,7 @@ label{
   font-size: 1.3em;
   text-align: center;
   padding: 5px;
+
 }
 .continue-shopping{
   color: white;
